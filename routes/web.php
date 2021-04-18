@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+require __DIR__ . '/auth.php';
+
+Route::redirect('/', '/login');
+
+Route::get('/dashboard', function () {
     return \Inertia\Inertia::render('Index');
 });
