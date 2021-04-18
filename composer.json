@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.4.1",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "tightenco/ziggy": "^1.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -22,6 +23,9 @@
         "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
+        "files": [
+            "app/Helpers/array.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
