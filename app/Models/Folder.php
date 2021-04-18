@@ -24,8 +24,16 @@ class Folder extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function folder()
+    public function folders()
     {
         return $this->belongsTo(Folder::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

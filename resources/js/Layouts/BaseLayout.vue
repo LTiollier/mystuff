@@ -5,8 +5,7 @@
                 <b-navbar-item>
                     <img
                         src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-                        alt="Lightweight UI components for Vue.js based on Bulma"
-                    >
+                        alt="Lightweight UI components for Vue.js based on Bulma">
                 </b-navbar-item>
             </template>
             <template #start>

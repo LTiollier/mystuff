@@ -1,0 +1,75 @@
+name:  MyStuff CI
+on: [push]
+jobs:
+  ci-testing:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: none
+
+      - uses: actions/checkout@v2
+
+      - name: Copying .env environment file
+        run: cp .env.example .env
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-mystuff
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Installing PHP dependencies
+        run: composer install
+
+      - name: Run phpstan
+        run: ./vendor/bin/phpstan analyse --memory-limit=2G
+
+      - name: Security checker
+        run: ./local-php-security-checker-linux
+
+      - name: Generating laravel key
+        run: php artisan key:generate
+
+      - name: Cache node dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Installing mystuff npm depencies
+        run: npm install
+
+      - name: Compilling JavaScript files
+        run: npm run production
+
+      - name: Starting MySQL
+        run: sudo systemctl start mysql.service
+
+      - name: Creating Database
+        run: make create_database
+
+      - name: Fresh Database
+        run: make fresh
+
+      - name: Running web server
+        run: php artisan serve &
+
+      - name: Run PHP CS Fixer
+        run: ./vendor/bin/phpcs --report=full
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: app/**.php Modules/**.php
+          commit_message: ":art: Fix styling"

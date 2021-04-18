@@ -12,6 +12,9 @@ const mix = require('laravel-mix')
  |
  */
 
+/** @see https://github.com/JaKXz/stylelint-webpack-plugin */
+var StyleLintPlugin = require('stylelint-webpack-plugin');
+
 mix
     .sass('resources/sass/app.scss', 'public/css')
     .js('resources/js/app.js', 'public/js')
@@ -27,6 +30,31 @@ mix
                 '@': path.resolve('resources/js'),
             },
         },
+        module: {
+            rules: [
+                {
+                    enforce: 'pre',
+                    test: /\.(js|vue)$/,
+                    loader: 'eslint-loader',
+                    exclude: /node_modules/,
+                    options: {
+                        fix: true,
+                        quiet: false,
+                        failOnWarning: true,
+                        failOnError: true,
+                    }
+                }
+            ]
+        },
+        plugins: [
+            new StyleLintPlugin({
+                fix: true,
+                configFile: path.resolve(__dirname, '.stylelintrc'),
+                context: path.resolve(__dirname, 'resources/sass/' ),
+                lintDirtyModulesOnly: false, // on vérifie seulement les fichiers modifiés : true|false
+                emitErrors: true,
+            }),
+        ],
     })
     .version()
     .sourceMaps()

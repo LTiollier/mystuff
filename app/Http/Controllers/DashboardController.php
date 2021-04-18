@@ -38,7 +38,8 @@ class DashboardController extends Controller
      * @param Folder|null $folder
      * @return \Inertia\Response
      */
-    public function index(Folder $folder = null) {
+    public function index(Folder $folder = null)
+    {
         $folders = $folder ? $folder->folders : $this->folderRepository->getRootFolders();
         $products = $folder ? $folder->products : $this->productRepository->getRootProducts();
 
