@@ -17,6 +17,7 @@ require __DIR__ . '/auth.php';
 
 Route::redirect('/', '/login');
 
-Route::get('/dashboard', function () {
-    return \Inertia\Inertia::render('Index');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard/{folder?}', [\App\Http\Controllers\DashboardController::class, 'index'])
+        ->name('dashboard');
 });

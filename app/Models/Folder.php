@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Folder extends Model
 {
@@ -12,6 +13,22 @@ class Folder extends Model
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * @return Collection
+     */
+    public function getParents(): Collection
+    {
+        $parents = collect();
+        $parentFolder = $this;
+
+        while (!is_null($parentFolder)) {
+            $parents->push($parentFolder);
+            $parentFolder = $parentFolder->folder;
+        }
+
+        return $parents->reverse();
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -24,16 +41,24 @@ class Folder extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function folders()
+    public function folder()
     {
         return $this->belongsTo(Folder::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(Product::class);
     }
 }

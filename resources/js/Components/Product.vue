@@ -1,21 +1,32 @@
 <template>
-    <div class="folder folder--durga" ref="file">
+    <div ref="file" class="folder folder--durga" @click="$emit('click')">
         <div class="folder__icon folder__icon--perspective">
             <svg
+                id="Layer_1"
                 class="folder__icon-svg"
-                version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="0 0 200 270" style="enable-background:new 0 0 200 270;" xml:space="preserve">
-                            <path class="st0" d="M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2
-                H22.9z"/>
-                            <path class="st1" d="M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z"/>
-                            <circle class="st1" cx="100" cy="171.5" r="49.8"/>
-                            <rect x="67.8" y="154.6" class="st2" width="64.3" height="35.6"/>
-                            <text transform="matrix(1 0 0 1 74.4701 187.26)" class="st3 st4">21</text>
-                            <rect x="10.2" y="67.1" class="st2" width="179.6" height="45.4"/>
-                            <text transform="matrix(1 0 0 1 61.8208 95.5)" class="st5 st3 st6 st7">TXT</text>
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 200 270"
+                style="enable-background:new 0 0 200 270;"
+                xml:space="preserve">
+                <path
+                    class="st0"
+                    d="M22.9,1.2C10,1.2,0,11.1,0,24.1V246c0,11.9,10,22.9,22.9,22.9h154.2c11.9,0,22.9-10,22.9-22.9V60.9L140.3,1.2
+                H22.9z" />
+                <path class="st1" d="M139.3,38V1.2L199,60.9h-36.8C149.3,60.9,139.3,50.9,139.3,38z" />
+                <circle class="st1" cx="100" cy="171.5" r="49.8" />
+                <rect x="67.8" y="154.6" class="st2" width="64.3" height="35.6" />
+                <text transform="matrix(1 0 0 1 74.4701 187.26)" class="st3 st4">21</text>
+                <rect x="10.2" y="67.1" class="st2" width="179.6" height="45.4" />
+                <text transform="matrix(1 0 0 1 61.8208 95.5)" class="st5 st3 st6 st7">TXT</text>
             </svg>
         </div>
-        <h3 class="folder__caption">{{ product.name }}</h3>
+        <h3 class="folder__caption">
+            {{ product.name }}
+        </h3>
     </div>
 </template>
 

@@ -7,16 +7,10 @@ use App\Models\Product;
 class ProductRepository
 {
     /**
-     * @var Product
-     */
-    private $product;
-
-    /**
      * @param Product $product
      */
-    public function __construct(Product $product)
+    public function __construct(private Product $product)
     {
-        $this->product = $product;
     }
 
     public function getRootProducts()

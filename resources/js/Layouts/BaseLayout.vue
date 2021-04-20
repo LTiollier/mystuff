@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <b-navbar>
+    <div>
+        <b-navbar class="has-background-primary">
             <template #brand>
                 <b-navbar-item>
                     <img
@@ -9,36 +9,25 @@
                 </b-navbar-item>
             </template>
             <template #start>
-                <b-navbar-item href="#">
+                <b-navbar-item href="#" class="has-text-white">
                     Home
                 </b-navbar-item>
-                <b-navbar-item href="#">
+                <b-navbar-item href="#" class="has-text-white">
                     Documentation
                 </b-navbar-item>
-                <b-navbar-dropdown label="Info">
-                    <b-navbar-item href="#">
-                        About
-                    </b-navbar-item>
-                    <b-navbar-item href="#">
-                        Contact
-                    </b-navbar-item>
-                </b-navbar-dropdown>
             </template>
 
             <template #end>
                 <b-navbar-item tag="div">
-                    <div class="buttons">
-                        <a class="button is-primary">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a class="button is-light">
-                            Log in
-                        </a>
+                    <div class="button is-info" @click="logout">
+                        <strong>Déconnexion</strong>
                     </div>
                 </b-navbar-item>
             </template>
         </b-navbar>
-        <slot />
+        <div class="container">
+            <slot />
+        </div>
     </div>
 </template>
 
@@ -47,6 +36,11 @@ export default {
     name: "BaseLayout",
     data() {
         return {}
+    },
+    methods: {
+        logout() {
+            this.$inertia.post(this.route('logout'));
+        }
     }
 }
 </script>

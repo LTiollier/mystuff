@@ -13,25 +13,13 @@ use Inertia\Inertia;
 class DashboardController extends Controller
 {
     /**
-     * @var FolderRepository
-     */
-    private $folderRepository;
-
-    /**
-     * @var ProductRepository
-     */
-    private $productRepository;
-
-    /**
      * @param FolderRepository $folderRepository
      * @param ProductRepository $productRepository
      */
     public function __construct(
-        FolderRepository $folderRepository,
-        ProductRepository $productRepository
+        private FolderRepository $folderRepository,
+        private ProductRepository $productRepository
     ) {
-        $this->folderRepository = $folderRepository;
-        $this->productRepository = $productRepository;
     }
 
     /**
@@ -42,11 +30,13 @@ class DashboardController extends Controller
     {
         $folders = $folder ? $folder->folders : $this->folderRepository->getRootFolders();
         $products = $folder ? $folder->products : $this->productRepository->getRootProducts();
+        $parents = $folder ? $folder->getParents() : collect();
 
         return Inertia::render('Dashboard', [
-            'folders' => FolderResource::collection($folders),
-            'products' => ProductResource::collection($products),
+            'folders' => $folders ? FolderResource::collection($folders) : [],
+            'products' => $products ? ProductResource::collection($products) : [],
             'status' => formatForSelect(Product::STATUS_LABELS),
+            'parents' => FolderResource::collection($parents),
         ]);
     }
 }

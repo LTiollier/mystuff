@@ -42,12 +42,9 @@ class HandleInertiaRequests extends Middleware
                 $user = auth()->user();
                 return $user ? UserResource::make($user) : null;
             },
-            'flash' => function () use ($request) {
-                return [
-                    'success' => $request->session()->get('success'),
-                    'error' => $request->session()->get('error'),
-                ];
-            },
+            'status' => function () {
+                return session('status');
+            }
         ]);
     }
 }

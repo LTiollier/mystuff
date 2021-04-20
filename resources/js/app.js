@@ -1,12 +1,19 @@
 require('./bootstrap');
 
 import Vue from 'vue';
+import Vuex from 'vuex';
 import { App, plugin } from '@inertiajs/inertia-vue';
 import { InertiaProgress } from '@inertiajs/progress/src';
 
 Vue.config.productionTip = false;
-Vue.mixin({ methods: { route: window.route } })
+Vue.mixin({
+    methods: {
+        route: window.route,
+        isError: (error) => { return error ? 'is-danger' : null }
+    }
+})
 Vue.use(plugin);
+Vue.use(Vuex);
 
 require('@/Plugins/buefy.js');
 require('@/Plugins/folder.js');

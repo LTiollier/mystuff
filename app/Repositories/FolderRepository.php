@@ -7,16 +7,10 @@ use App\Models\Folder;
 class FolderRepository
 {
     /**
-     * @var Folder
-     */
-    private $folder;
-
-    /**
      * @param Folder $folder
      */
-    public function __construct(Folder $folder)
+    public function __construct(private Folder $folder)
     {
-        $this->folder = $folder;
     }
 
     public function getRootFolders()
